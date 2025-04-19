@@ -10,6 +10,48 @@
     textarea { width: 100%; height: 100px; margin-top: 1em; }
     button { margin-top: 1em; padding: 0.5em 1em; font-size: 1em; }
     .output { margin-top: 2em; background: #f0f0f0; padding: 1em; border-radius: 8px; white-space: pre-line; }
+    .note { font-size: 0.9em; color: #555; margin-top: 0.5em; }
+  </style>
+</head>
+<body>
+  <h1>もみ徳 簡単口コミツール</h1>
+
+  <label>
+    担当セラピスト：
+    <select id="therapist">
+      <option>きださん</option>
+      <option>高さん</option>
+      <option>米倉さん</option>
+    </select>
+  </label>
+
+  <label>
+    施術コース：
+    <select id="course">
+      <option>もみほぐしコース</option>
+      <option>足つぼセットコース</option>
+      <option>ヘッド付きコース</option>
+    </select>
+  </label>
+
+  <label>
+    施術後に感じたこと（複数選択可）：<br>
+    <input type="checkbox" value="コリに的確"> コリに的確<br>
+    <input type="checkbox" value="力強い"> 力強い<br>
+    <input type="checkbox" value="動作が楽に"> 動作が楽に<br>
+    <in<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>もみ徳 簡単口コミツール</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; max-width: 600px; margin: auto; }
+    label { display: block; margin-top: 1em; }
+    textarea { width: 100%; height: 100px; margin-top: 1em; }
+    button { margin-top: 1em; padding: 0.5em 1em; font-size: 1em; }
+    .output { margin-top: 2em; background: #f0f0f0; padding: 1em; border-radius: 8px; white-space: pre-line; }
+    .note { font-size: 0.9em; color: #555; margin-top: 0.5em; }
   </style>
 </head>
 <body>
@@ -56,6 +98,56 @@
   <p id="reviewLinks" style="display:none; margin-top: 1em;">
     <a href="https://www.google.com/gasearch?q=%E3%82%82%E3%81%BF%E5%BE%B3%E5%A7%AA%E6%B5%9C%E5%BA%97%20%E7%A6%8F%E5%B2%A1%E5%B8%82%20%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC&source=sh/x/gs/m2/5#ebo=1" target="_blank">▶ iPhoneの方はこちら</a><br>
     <a href="https://www.google.com/search?q=%E3%82%82%E3%81%BF%E5%BE%B3%E5%A7%AA%E6%B5%9C%E5%BA%97%E3%80%80%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC&sca_esv=d3079a9fd571ab97&hl=ja&sxsrf=AHTn8zryPjqF7_QbLGgMMskQnVmtfFoZKA:1745027450043&ei=egEDaJfhAfaevr0PhbD6IA&ved=0ahUKEwiXhqHq_eKMAxV2j68BHQWYHgQQ4dUDCBA&uact=5&oq=%E3%82%82%E3%81%BF%E5%BE%B3%E5%A7%AA%E6%B5%9C%E5%BA%97%E3%80%80%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC&gs_lp=Egxnd3Mtd2l6LXNlcnAiIeOCguOBv-W-s-Wnqua1nOW6l-OAgOODrOODk-ODpeODvDIFEAAY7wUyCBAAGIAEGKIEMgUQABjvBTIIEAAYgAQYogQyBRAAGO8FSJ42UPgVWOYzcAJ4AJABAJgBqQGgAZwKqgEDMC45uAEDyAEA-AEBmAIKoAKxCcICCBAAGIAEGLADwgIIEAAYsAMY7wXCAgsQABiABBiwAxiiBMICBRAAGIAEwgICECbCAgUQIRigAcICBhAhGAoYKpgDAIgGAZAGCJIHAzIuOKAHmBWyBwMwLji4B6sJ&sclient=gws-wiz-serp#lrd=0x3541933fde3f26ad:0xd858787fee84e737,3,,,," target="_blank">▶ Android／PCの方はこちら</a>
+    <p class="note">※ iPhoneをご利用の方は、リンク先でまず「★星をタップ」してからでないと口コミ入力欄が表示されない場合があります。</p>
+  </p>
+
+  <script>
+    function generateText() {
+      const name = document.getElementById('therapist').value;
+      const course = document.getElementById('course').value;
+      const comment = document.getElementById('comment').value;
+
+      const feelings = Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
+        .map(cb => cb.value).join('、');
+
+      let result = `${name}に${course}を施術していただきました。${feelings}と感じて、とても満足しています。`;
+      if (comment.trim()) {
+        result += `\n${comment.trim()}`;
+      }
+
+      document.getElementById('output').style.display = 'block';
+      document.getElementById('output').textContent = result;
+      document.getElementById('copyBtn').style.display = 'inline-block';
+      document.getElementById('reviewLinks').style.display = 'block';
+    }
+
+    document.getElementById('copyBtn').onclick = function() {
+      const text = document.getElementById('output').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("コピーしました！");
+      });
+    }
+  </script>
+</body>
+</html>put type="checkbox" value="スッキリ"> スッキリ<br>
+    <input type="checkbox" value="丁寧な接客"> 丁寧な接客<br>
+    <input type="checkbox" value="ワザが凄い"> ワザが凄い<br>
+  </label>
+
+  <label>
+    コメント（任意）：<br>
+    <textarea id="comment" placeholder="とても気持ちよかったです！"></textarea>
+  </label>
+
+  <button onclick="generateText()">クチコミ文を作成する</button>
+
+  <div id="output" class="output" style="display: none;"></div>
+  <button id="copyBtn" style="display:none;">コピー</button>
+
+  <p id="reviewLinks" style="display:none; margin-top: 1em;">
+    <a href="https://www.google.com/gasearch?q=%E3%82%82%E3%81%BF%E5%BE%B3%E5%A7%AA%E6%B5%9C%E5%BA%97%20%E7%A6%8F%E5%B2%A1%E5%B8%82%20%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC&source=sh/x/gs/m2/5#ebo=1" target="_blank">▶ iPhoneの方はこちら</a><br>
+    <a href="https://www.google.com/search?q=%E3%82%82%E3%81%BF%E5%BE%B3%E5%A7%AA%E6%B5%9C%E5%BA%97%E3%80%80%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC&sca_esv=d3079a9fd571ab97&hl=ja&sxsrf=AHTn8zryPjqF7_QbLGgMMskQnVmtfFoZKA:1745027450043&ei=egEDaJfhAfaevr0PhbD6IA&ved=0ahUKEwiXhqHq_eKMAxV2j68BHQWYHgQQ4dUDCBA&uact=5&oq=%E3%82%82%E3%81%BF%E5%BE%B3%E5%A7%AA%E6%B5%9C%E5%BA%97%E3%80%80%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC&gs_lp=Egxnd3Mtd2l6LXNlcnAiIeOCguOBv-W-s-Wnqua1nOW6l-OAgOODrOODk-ODpeODvDIFEAAY7wUyCBAAGIAEGKIEMgUQABjvBTIIEAAYgAQYogQyBRAAGO8FSJ42UPgVWOYzcAJ4AJABAJgBqQGgAZwKqgEDMC45uAEDyAEA-AEBmAIKoAKxCcICCBAAGIAEGLADwgIIEAAYsAMY7wXCAgsQABiABBiwAxiiBMICBRAAGIAEwgICECbCAgUQIRigAcICBhAhGAoYKpgDAIgGAZAGCJIHAzIuOKAHmBWyBwMwLji4B6sJ&sclient=gws-wiz-serp#lrd=0x3541933fde3f26ad:0xd858787fee84e737,3,,,," target="_blank">▶ Android／PCの方はこちら</a>
+    <p class="note">※ iPhoneをご利用の方は、リンク先でまず「★星をタップ」してからでないと口コミ入力欄が表示されない場合があります。</p>
   </p>
 
   <script>
