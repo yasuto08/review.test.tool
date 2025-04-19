@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>クチコミ文章ジェネレーター</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; max-width: 600px; margin: auto; }
+    label { display: block; margin-top: 1em; }
+    textarea { width: 100%; height: 100px; margin-top: 1em; }
+    button { margin-top: 1em; padding: 0.5em 1em; font-size: 1em; }
+    .output { margin-top: 2em; background: #f0f0f0; padding: 1em; border-radius: 8px; white-space: pre-line; }
+  </style>
+</head>
+<body>
+  <h1>クチコミ文章ジェネレーター</h1>
+
+  <label>
+    担当セラピスト：
+    <select id="therapist">
+      <option>きださん</option>
+      <option>高さん</option>
+      <option>米倉さん</option>
+    </select>
+  </label>
+
+  <label>
+    施術コース：
+    <select id="course">
+      <option>もみほぐしコース</option>
+      <option>足つぼセットコース</option>
+      <option>ヘッド付きコース</option>
+    </select>
+  </label>
+
+  <label>
+    施術後に感じたこと（複数選択可）：<br>
+    <input type="checkbox" value="コリに的確"> コリに的確<br>
+    <input type="checkbox" value="力強い"> 力強い<br>
+    <input type="checkbox" value="動作が楽に"> 動作が楽に<br>
+    <input type="checkbox" value="スッキリ"> スッキリ<br>
+    <input type="checkbox" value="丁寧な接客"> 丁寧な接客<br>
+    <input type="checkbox" value="ワザが凄い"> ワザが凄い<br>
+  </label>
+
+  <label>
+    コメント（任意）：<br>
+    <textarea id="comment" placeholder="とても気持ちよかったです！"></textarea>
+  </label>
+
+  <button onclick="generateText()">クチコミ文を作成する</button>
+
+  <div id="output" class="output" style="display: none;"></div>
+  <button id="copyBtn" style="display:none;">コピー</button>
+  <a id="reviewLink" href="https://bit.ly/momitoku-review" target="_blank" style="display:none; margin-top: 1em; display: inline-block;">Googleレビュー投稿はこちら</a>
+
+  <script>
+    function generateText() {
+      const name = document.getElementById('therapist').value;
+      const course = document.getElementById('course').value;
+      const comment = document.getElementById('comment').value;
+
+      const feelings = Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
+        .map(cb => cb.value).join('、');
+
+      let result = `${name}に${course}を施術していただきました。${feelings}と感じて、とても満足しています。`;
+      if (comment.trim()) {
+        result += `\n${comment.trim()}`;
+      }
+
+      document.getElementById('output').style.display = 'block';
+      document.getElementById('output').textContent = result;
+      document.getElementById('copyBtn').style.display = 'inline-block';
+      document.getElementById('reviewLink').style.display = 'inline-block';
+    }
+
+    document.getElementById('copyBtn').onclick = function() {
+      const text = document.getElementById('output').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("コピーしました！");
+      });
+    }
+  </script>
+</body>
+</html>
