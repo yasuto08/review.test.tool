@@ -57,7 +57,9 @@
   <p id="reviewLinks" style="display:none; margin-top: 1em;">
     <a href="https://www.google.com/gasearch?q=もみ徳姪浜店 福岡市 レビュー&source=sh/x/gs/m2/5#ebo=1" target="_blank">▶ iPhoneの方はこちら</a><br>
     <a href="https://www.google.com/search?q=もみ徳姪浜店　レビュー&sca_esv=d3079a9fd571ab97&hl=ja&sxsrf=AHTn8zryPjqF7_QbLGgMMskQnVmtfFoZKA:1745027450043#lrd=0x3541933fde3f26ad:0xd858787fee84e737,3" target="_blank">▶ Android／PCの方はこちら</a>
-    <p class="note">※ iPhoneをご利用の方は、リンク先でまず「★星をタップ」してからでないと口コミ入力欄が表示されない場合があります。</p>
+  </p>
+  <p id="noteText" class="note" style="display:none;">
+    ※ iPhoneをご利用の方は、リンク先でまず「★星をタップ」してからでないと口コミ入力欄が表示されない場合があります。
   </p>
 
   <script>
@@ -78,6 +80,7 @@
       document.getElementById('output').textContent = result;
       document.getElementById('copyBtn').style.display = 'inline-block';
       document.getElementById('reviewLinks').style.display = 'block';
+      document.getElementById('noteText').style.display = 'block';
     }
 
     document.getElementById('copyBtn').onclick = function() {
